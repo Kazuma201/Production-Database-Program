@@ -8,41 +8,67 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class Controller implements Initializable
+public class Controller
 {
+  //---------------------------------------------
+//ProductLine
+@FXML
+public void addProduct()
+{
+  System.out.println("Something");
+}
 
   @FXML
-  Tab tab1;
+  public void tblExistingPro(){}
 
   @FXML
-  Tab tab2;
+  public void lblExistingPro(){}
 
-  @Override
-  public void initialize(URL location, ResourceBundle resources)
+  @FXML
+  public void lblProductName(){}
+
+  @FXML
+  public void lblManufacturer(){}
+
+  @FXML
+  public void lblItemType(){}
+
+  @FXML
+  public void txtProductName(){}
+
+  @FXML
+  public void txtManufacturer(){}
+
+  @FXML
+  public void txtItemType(){}
+
+
+  @FXML
+  public void btnAddProduct(){}
+
+
+  //---------------------------------------------
+  //Produce
+  @FXML
+  public void comBoxChooseQuan(){}
+
+  @FXML
+  public void recordProduction()
   {
-
-    FXMLLoader loader = new FXMLLoader();
-    try
-    {
-      AnchorPane anch1 = loader.load(getClass().getResource(
-          "Tab1.fxml"));
-      tab1.setContent(anch1);
-    }
-    catch(IOException iex)
-    {
-      System.out.println("File not found");
-    }
-    loader = new FXMLLoader();
-    try
-    {
-      AnchorPane anch2 = loader.load(getClass().getResource(
-          "Tab2.fxml"));
-      tab2.setContent(anch2);
-    }
-    catch(IOException iex)
-    {
-      System.out.println("File not found");
-    }
-
+    System.out.println();
   }
+  @FXML
+  public void lblChooseProduct(){}
+
+  @FXML
+  public void lstProductList(){}
+
+  @FXML
+  public void lblChooseQuantity(){}
+
+  @FXML
+  public void btnRecordProduct(){}
+  //ProductionLog
+  @FXML
+  public void txtArea(){}
 }

@@ -1,4 +1,3 @@
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,8 +16,9 @@ public class Main extends Application {
 
     Scene scene = new Scene(root, 300, 275);
 
-    primaryStage.setTitle("Production Project");
+    primaryStage.setTitle("Production Program");
     primaryStage.setScene(scene);
     primaryStage.show();
+
   }
 }

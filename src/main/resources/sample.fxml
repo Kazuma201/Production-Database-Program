@@ -38,7 +38,7 @@
                         <Label fx:id="lblItemType" text="Item Type" GridPane.rowIndex="2" />
                         <TextField fx:id="txtProductName" GridPane.columnIndex="1" />
                         <TextField fx:id="txtManufacturer" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <TextField fx:id="txtItemType" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <ComboBox fx:id="cmboItemType" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                      </children>
                   </GridPane>
                   <Button fx:id="btnAddProduct" layoutX="84.0" layoutY="179.0" mnemonicParsing="false" onAction="#addProduct" text="Add Product" />

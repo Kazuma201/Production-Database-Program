@@ -1,3 +1,9 @@
+/*
+ * | Jose Alvarez    |
+ * | SemesterProject |
+ * | 09/01/2020      |
+ */
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,7 +20,7 @@ public class Main extends Application {
   public void start(Stage primaryStage) throws Exception {
     Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
 
-    Scene scene = new Scene(root, 500, 500);
+    Scene scene = new Scene(root, 800, 500);
 
     primaryStage.setTitle("Production Program");
     primaryStage.setScene(scene);

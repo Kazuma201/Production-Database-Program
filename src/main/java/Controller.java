@@ -31,7 +31,7 @@ public class Controller {
   private TextField txtManufacturer;
 
   @FXML
-  private ComboBox<?> cmboItemType;
+  private ComboBox<String> cmboItemType;
 
   @FXML
   private Button btnAddProduct;
@@ -77,6 +77,14 @@ public class Controller {
 
     for(int count = 1; count <=10; count++) {
       comBoxChooseQuan.getItems().add(String.valueOf(count));
+      //
+
+      cmboItemType.setEditable(true);
+      cmboItemType.getSelectionModel().selectFirst();
+      for (ItemType it : ItemType.values()) {
+        cmboItemType.getItems().add(it.code);
+      }
+
     }
   }
 

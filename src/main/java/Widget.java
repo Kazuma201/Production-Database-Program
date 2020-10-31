@@ -1,4 +1,4 @@
-class Widget extends Product {
+/*class Widget extends Product {
 
   //Create a widget
   Widget(String Name, String Type, String Manufacturer)
@@ -13,3 +13,4 @@ class Widget extends Product {
 
 }
 
+*/

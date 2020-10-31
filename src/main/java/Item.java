@@ -1,3 +1,10 @@
+/*
+ * | Jose Alvarez    |
+ * | SemesterProject |
+ * | 10/01/2020      |
+ * | Item.java       |
+ */
+
 import java.lang.*;
 
 //item interface
@@ -18,8 +25,4 @@ public interface Item {
 
   //method setManufacturer with a string parameter
   void setManufacturer(String manufacturer);
-
-
-
-
 }

@@ -1,7 +1,21 @@
-
-//Simple enum storing 3 values
+/*
+ * | Jose Alvarez      |
+ * | SemesterProject   |
+ * | 10/01/2020        |
+ * | MonitorType.java  |
+ */
+//Simple enum storing values
 public enum MonitorType {
-  Type,
-  LCD,
-  LED;
+  LCD("LCD"),
+  LED("LED");
+
+  public String tvScr;
+
+  MonitorType(String tv)
+  {
+    tvScr = tv;
+  }
+  public String getTvScr(){
+    return tvScr;
+  }
 }

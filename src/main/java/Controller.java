@@ -1,8 +1,17 @@
+/*
+ * | Jose Alvarez    |
+ * | SemesterProject |
+ * | 09/01/2020      |
+ * | Controller.java |
+ */
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -37,7 +46,7 @@ public class Controller {
   private Button btnAddProduct;
 
   @FXML
-  private TableView<?> tblExistingPro;
+  private TableView<Product> tblExistingPro;// = new TableView();
 
   @FXML
   private Label lblExistingPro;
@@ -46,7 +55,7 @@ public class Controller {
   private Label lblChooseProduct;
 
   @FXML
-  private ListView<?> lstProductList;
+  private ListView<Product> lstProductList;// = new ListView();
 
   @FXML
   private Label lblChooseQuantity;
@@ -72,6 +81,10 @@ public class Controller {
   public void initialize()
   {
 
+    ObservableList<Product> productLine;
+
+
+
     comBoxChooseQuan.setEditable(true);
     comBoxChooseQuan.getSelectionModel().selectFirst();
 
@@ -84,10 +97,8 @@ public class Controller {
       for (ItemType it : ItemType.values()) {
         cmboItemType.getItems().add(it.code);
       }
-
     }
   }
-
   public void outputTable()
   {
     final String JDBC_DRIVER = "org.h2.Driver";
@@ -116,8 +127,6 @@ public class Controller {
         System.out.println(rs.getString(3));
         System.out.println(rs.getString(4));
       }
-
-
       // STEP 4: Clean-up environment
       stmt.close();
       conn.close();
@@ -127,7 +136,6 @@ public class Controller {
       e.printStackTrace();
     }
   }
-
 
   public void updateProduct()
   {

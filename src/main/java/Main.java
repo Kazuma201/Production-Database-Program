@@ -2,6 +2,7 @@
  * | Jose Alvarez    |
  * | SemesterProject |
  * | 09/01/2020      |
+ * | Main.java       |
  */
 
 import javafx.application.Application;

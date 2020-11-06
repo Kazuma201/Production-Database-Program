@@ -44,8 +44,9 @@
                   <Button fx:id="btnAddProduct" layoutX="84.0" layoutY="179.0" mnemonicParsing="false" onAction="#addProduct" text="Add Product" />
                   <TableView fx:id="tblExistingPro" layoutX="359.0" layoutY="47.0" prefHeight="200.0" prefWidth="200.0">
                     <columns>
-                      <TableColumn prefWidth="75.0" text="C1" />
-                      <TableColumn prefWidth="75.0" text="C2" />
+                      <TableColumn fx:id="tblExistingProdName" prefWidth="60.0" text="C1" />
+                      <TableColumn fx:id="tblExistingManufacturer" prefWidth="77.0" text="C2" />
+                        <TableColumn fx:id="tblExistingItemType" prefWidth="61.0" text="C3" />
                     </columns>
                   </TableView>
                   <Label fx:id="lblExistingPro" layoutX="386.0" layoutY="14.0" text="Existing Products">

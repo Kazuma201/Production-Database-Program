@@ -33,6 +33,9 @@ public abstract class Product implements Item {
   {
     return Id;
   }
+  public void setId(int id) {
+    this.Id = id;
+  }
 
   @Override
   public String getManufacturer() {
@@ -53,7 +56,15 @@ public abstract class Product implements Item {
     Name = name;
   }
 
+  public ItemType getType() {
+    return Type;
 }
+
+  public void setType(ItemType type) {
+    Type = type;
+  }
+
+  }
 
 /*
 class Widget extends Product {
@@ -63,4 +74,5 @@ class Widget extends Product {
   {
     super(name,manufacturer,type);
   }
-}*/
+  */
+

@@ -11,6 +11,8 @@ public class ProductionRecord {
   private int productID;
   private String serialNumber;
   private Date dateProduced;
+  public Product productProduced;
+  public int itemCount;
 
   // ---------------------
   //Accessors and Mutators
@@ -49,12 +51,12 @@ public class ProductionRecord {
   //Method that will get dateProduced
   public Date getProdDate()
   {
-    return dateProduced;
+    return new Date(this.dateProduced.getTime());
   }
   //Method that will set the dateProduced
   public void setProdDate(Date dateProduced)
   {
-    this.dateProduced = dateProduced;
+    this.dateProduced = new Date(dateProduced.getTime());
   }
 
   //----------------------
@@ -66,7 +68,7 @@ public class ProductionRecord {
     this.productionNumber = productionNumber;
     this.productID = productID;
     this.serialNumber = serialNumber;
-    this.dateProduced = dateProduced;
+    this.dateProduced = new Date(dateProduced.getTime());
 
   }
   //Constructor with just productID parameter
@@ -79,7 +81,7 @@ public class ProductionRecord {
     //set the serial number to "0" (string value)
     serialNumber = "0";
     //set the date to current date
-    dateProduced = new Date();
+    Date dateProduced = new Date();
   }
 
   @Override
@@ -88,8 +90,14 @@ public class ProductionRecord {
     return "Prod. Num: " + productionNumber + " Product ID: " + productID
         + " Serial Num: " + serialNumber + " Date: " + dateProduced;
   }
-  //
-  //ProductionRecord
 
+  ProductionRecord(Product productProduced, int itemCount){
+    this.productProduced = productProduced;
+    this.itemCount = itemCount;
+    this.dateProduced = new Date();
+
+    serialNumber = productProduced.getManufacturer().substring(0,3) + productProduced.getType().getCode()
+        + String.format("%05d", itemCount);
+  }
 
 }

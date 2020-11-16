@@ -13,13 +13,10 @@ public enum ItemType {
   AUDIO_MOBILE("AM"),
   VISUAL_MOBILE("VM");
 
-  public final String code;
+  public String code;
 
-  ItemType(String c){
-    code = c;
+  ItemType(String code) {
+    this.code = code;
   }
 
-  public String getCode(){
-    return code;
-  }
 }

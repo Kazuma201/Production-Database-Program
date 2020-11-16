@@ -11,6 +11,7 @@ public class ProductionRecord {
   private int productID;
   private String serialNumber;
   private Date dateProduced;
+
   public Product productProduced;
   public int itemCount;
 
@@ -51,19 +52,20 @@ public class ProductionRecord {
   //Method that will get dateProduced
   public Date getProdDate()
   {
-    return new Date(this.dateProduced.getTime());
+    return dateProduced;
   }
   //Method that will set the dateProduced
   public void setProdDate(Date dateProduced)
   {
-    this.dateProduced = new Date(dateProduced.getTime());
+    this.dateProduced = dateProduced;
   }
 
   //----------------------
   //Basic Constructor
   //----------------------
   //Product record constructor that will take the fields and assigns them
-  ProductionRecord(int productionNumber, int productID, String serialNumber, Date dateProduced)
+  public ProductionRecord(int productionNumber, int productID, String serialNumber,
+      Date dateProduced)
   {
     this.productionNumber = productionNumber;
     this.productID = productID;
@@ -88,15 +90,15 @@ public class ProductionRecord {
   public String toString()
   {
     return "Prod. Num: " + productionNumber + " Product ID: " + productID
-        + " Serial Num: " + serialNumber + " Date: " + dateProduced;
+        + " Serial Num: " + serialNumber + " Date: " + dateProduced + "\n";
   }
 
-  ProductionRecord(Product productProduced, int itemCount){
+  public ProductionRecord(Product productProduced, int itemCount){
     this.productProduced = productProduced;
     this.itemCount = itemCount;
     this.dateProduced = new Date();
 
-    serialNumber = productProduced.getManufacturer().substring(0,3) + productProduced.getType().getCode()
+    serialNumber = productProduced.getManufacturer().substring(0,3) + productProduced.getType().code
         + String.format("%05d", itemCount);
   }
 

@@ -16,17 +16,17 @@ public abstract class Product implements Item {
   Product(){}
 
   //Product constructor that will take the fields and set them
-  Product(String name, String manufacturer, ItemType type)
+  Product(String name,  ItemType type, String manufacturer)
   {
     this.Name = name;
-    this.Manufacturer = manufacturer;
     this.Type = type;
+    this.Manufacturer = manufacturer;
   }
 
   @Override
   public String toString() {
-    return "Name: " + Name + "\n" + "Manufacturer: " + Manufacturer + "\n" + "Type: "
-        + Type.getCode();
+    return "Name: " + Name + "\n" +"Type: " + Type.code + "\n"
+    + "Manufacturer: " + Manufacturer;
   }
 
   public int getId()
@@ -66,13 +66,13 @@ public abstract class Product implements Item {
 
   }
 
-/*
-class Widget extends Product {
+
+class Widget extends Product implements Item{
 
   //Create a widget
-  Widget(String name,String manufacturer, ItemType type )
-  {
-    super(name,manufacturer,type);
+  Widget(String name, ItemType type, String manufacturer) {
+    super(name, type, manufacturer);
   }
-  */
+}
+
 

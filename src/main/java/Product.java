@@ -8,16 +8,16 @@
 public abstract class Product implements Item {
 
   //Product fields
-  private int Id;
-  private ItemType Type;
-  private String Manufacturer;
-  private String Name;
+  public int Id;
+  public ItemType Type;
+  public String Manufacturer;
+  public String Name;
 
-  Product(){}
+  Product() {
+  }
 
   //Product constructor that will take the fields and set them
-  Product(String name,  ItemType type, String manufacturer)
-  {
+  Product(String name, ItemType type, String manufacturer) {
     this.Name = name;
     this.Type = type;
     this.Manufacturer = manufacturer;
@@ -25,14 +25,14 @@ public abstract class Product implements Item {
 
   @Override
   public String toString() {
-    return "Name: " + Name + "\n" +"Type: " + Type.code + "\n"
-    + "Manufacturer: " + Manufacturer;
+    return "Name: " + Name + "\n" + "Type: " + Type.code + "\n"
+        + "Manufacturer: " + Manufacturer;
   }
 
-  public int getId()
-  {
+  public int getId() {
     return Id;
   }
+
   public void setId(int id) {
     this.Id = id;
   }
@@ -44,8 +44,9 @@ public abstract class Product implements Item {
 
   @Override
   public void setManufacturer(String manufacturer) {
-    Manufacturer = manufacturer;
+    this.Manufacturer = manufacturer;
   }
+
   @Override
   public String getName() {
     return Name;
@@ -53,26 +54,19 @@ public abstract class Product implements Item {
 
   @Override
   public void setName(String name) {
-    Name = name;
+    this.Name = name;
   }
 
   public ItemType getType() {
     return Type;
-}
+  }
 
   public void setType(ItemType type) {
-    Type = type;
+    this.Type = type;
   }
 
-  }
-
-
-class Widget extends Product implements Item{
-
-  //Create a widget
-  Widget(String name, ItemType type, String manufacturer) {
-    super(name, type, manufacturer);
-  }
 }
+
+
 
 

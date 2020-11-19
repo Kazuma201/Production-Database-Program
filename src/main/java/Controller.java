@@ -5,6 +5,8 @@
  * | Controller.java |
  */
 
+import static java.lang.Integer.parseInt;
+
 import java.sql.PreparedStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -18,6 +20,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
@@ -51,9 +54,9 @@ public class Controller {
   //------------------------------
   //ComboBoxes
   @FXML
-  private ComboBox<String> comboItemType;
+  private ChoiceBox<String> choiceBox;
   @FXML
-  private ComboBox<Integer> comBoxChooseQuan;
+  private ComboBox<String> comBoxChooseQuan;
   //-------------------------------
   //Buttons
   @FXML
@@ -65,21 +68,20 @@ public class Controller {
   //----------------------------------------------
   //Global for the Database
   //-----------------------------------------------
-  final String JDBC_DRIVER = "org.h2.Driver";
-  final String DB_URL = "jdbc:h2:./res/ProjectDB";
+
   //  Database credentials
   final String USER = "";
   final String PASS = "";
-  Connection conn = null;
-  Statement stmt = null;
+  Connection conn;
+  Statement stmt;
+  ResultSet rs;
+
 //-------------------------------------------------
 
   //list the products in the combo box in the products tab (table view)
-  final ObservableList<Product> productLine = FXCollections
+   ObservableList<Product> productLine = FXCollections
       .observableArrayList();
 
-  ///List for the Production Record
-  final ArrayList<ProductionRecord> productionRun = new ArrayList<>();
 
   /* ---------------------------
    *
@@ -87,43 +89,30 @@ public class Controller {
    *
    * ---------------------------*/
   public void initialize() {
-    //connect to database
-    //connectDB();
-
-    ProductionRecord recordProd = new ProductionRecord(0);
-    String product = recordProd.toString();
-    txtArea.setText(product);
-
     //Add to combo box
     setCombBox();
     //Add to combo box item
-    setItemBox();
+    setChoiceBox();
 
-    setupProductLineTable(productLine);
-    //  loadProductionLog(productionRun);
-    // loadProductList(productLine);
-
+    loadProductList();
+    setupProductLineTable();
+    // loadProductionLog();
   }
 
   @FXML
   void recordProduction(ActionEvent event) {
 
-    int amount = Integer.parseInt(String.valueOf(
-        comBoxChooseQuan.getSelectionModel().getSelectedItem()));
+    int amount = parseInt(comBoxChooseQuan.getValue());
 
     Product recordProd = lstProductList.getSelectionModel().getSelectedItem();
 
-    ProductionRecord p;
 
-    for (int i = 0; i < amount; i++) {
-      p = new ProductionRecord(recordProd, i);
-      productionRun.add(p);
+   for (int i = 1; i <= amount; i++) {
+      ProductionRecord pr = new ProductionRecord(recordProd);
+
+      txtArea.appendText(pr.toString());
     }
-
-    addToDB(productionRun);
-    showProduction(productionRun);
-    //loadProductionLog(productionRun);
-
+    //loadProductionLog();
   }
 
   @FXML
@@ -133,8 +122,7 @@ public class Controller {
      * Add product Button: when clicked
      *
      * --------------------------------*/
-  void addProduct(ActionEvent event) {
-
+  void addProduct(ActionEvent event) throws SQLException {
     final String JDBC_DRIVER = "org.h2.Driver";
     final String DB_URL = "jdbc:h2:./res/ProjectDB";
     //  Database credentials
@@ -142,10 +130,9 @@ public class Controller {
     final String PASS = "";
 
     //Get the input text as strings
-    String name = txtProductName.getText();
-    String type = comboItemType.getValue();
-    String manufacturer = txtManufacturer.getText();
-
+    String AddName = txtProductName.getText();
+    String AddItem = choiceBox.getValue();
+    String AddManufacturer = txtManufacturer.getText();
     try {
       // STEP 1: Register JDBC driver
       Class.forName(JDBC_DRIVER);
@@ -154,28 +141,31 @@ public class Controller {
       //STEP 3: Execute a query
       stmt = conn.createStatement();
 
-      String sql = "INSERT INTO Product(name, type, manufacturer) "
-          + "VALUES (  'iPod','AUDIO', 'Apple' )";
+      String sql = "INSERT INTO PRODUCT(NAME, TYPE, MANUFACTURER)"
+          + "VALUES('" + AddName + "','" + AddItem + "','" + AddManufacturer + "')";
 
-      //Print out the Strings from the table
       stmt.executeUpdate(sql);
+      //Print out the Strings from the table
+
+      System.out.println(sql);
       // STEP 4: Clean-up environment
       stmt.close();
-
+      conn.close();
     } catch (ClassNotFoundException e) {
       e.printStackTrace();
     } catch (SQLException e) {
       e.printStackTrace();
     }
+
     //Clears the items in text fields
     txtProductName.clear();
     txtManufacturer.clear();
 
+    //productLine.add(new Widget(AddName,AddItem,AddManufacturer));
     //add to table view and list view
-    //  setupProductLineTable(productLine);
+    //setupProductLineTable(productLine);
     //loads the items to table view and list view
     // loadProductList(productLine);
-
   }
 
   //Function that will add the information from production record to the database
@@ -221,40 +211,39 @@ public class Controller {
 
   private void setCombBox() {
     // Add the numbers to be selected in the produce combo box
-    ObservableList<Integer> ProduceList = FXCollections
-        .observableArrayList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
-    comBoxChooseQuan.setItems(ProduceList);
+   for(int i = 1; i <= 10; i++){
+     comBoxChooseQuan.getItems().add(String.valueOf(i));
+   }
     comBoxChooseQuan.getSelectionModel().selectFirst();
     comBoxChooseQuan.setEditable(true);
-
+    comBoxChooseQuan.setValue("1");
   }
 
-  private void setItemBox() {
+  private void setChoiceBox() {
     // Add the values from the enum item type to the combo box in the product line tab
-    ObservableList<String> pLList = FXCollections.observableArrayList();
     for (ItemType it : ItemType.values()) {
-      pLList.add(String.valueOf(it));
+      choiceBox.getItems().add(String.valueOf(it));
     }
-    comboItemType.getItems().addAll(pLList);
   }
 
-  private void setupProductLineTable
-      (ObservableList<Product> productLine) {
-    // System.out.println(productName + type + manufacturer);
-    // Product widget = new Widget(productName,ItemType.valueOf(type),manufacturer);
-    // productLine.add(widget);
+  private void setupProductLineTable() {
 
-    tblExistingProdName.setCellValueFactory(new PropertyValueFactory("ID"));
-    tblExistingProdName.setCellValueFactory(new PropertyValueFactory("NAME"));
-    tblExistingItemType.setCellValueFactory(new PropertyValueFactory("TYPE"));
+    tblExistingProdName.setCellValueFactory(new PropertyValueFactory("Name"));
+    tblExistingItemType.setCellValueFactory(new PropertyValueFactory("Type"));
     tblExistingManufacturer
-        .setCellValueFactory(new PropertyValueFactory("MANUFACTURER"));
+        .setCellValueFactory(new PropertyValueFactory("Manufacturer"));
 
     tblExistingPro.setItems(productLine);
-    //  lstProductList.setItems(productLine);
+    lstProductList.setItems(productLine);
   }
 
-  private void loadProductList(ObservableList<Product> productLine) {
+  private void loadProductList() {
+    final String JDBC_DRIVER = "org.h2.Driver";
+    final String DB_URL = "jdbc:h2:./res/ProjectDB";
+    //  Database credentials
+    final String USER = "";
+    final String PASS = "";
+
     try {
       // STEP 1: Register JDBC driver
       Class.forName(JDBC_DRIVER);
@@ -264,16 +253,14 @@ public class Controller {
       stmt = conn.createStatement();
 
       String sql = "SELECT * FROM PRODUCT";
-      ResultSet rs = stmt.executeQuery(sql);
+      rs = stmt.executeQuery(sql);
 
       while (rs.next()) {
         String name = rs.getString(2);
         String type = rs.getString(3);
         String manufacturer = rs.getString(4);
 
-        Product productDB = new Product(name, ItemType.valueOf(type),
-            manufacturer) {
-        };
+        Product productDB = new Widget(name, ItemType.valueOf(type), manufacturer);
 
         productLine.add(productDB);
       }

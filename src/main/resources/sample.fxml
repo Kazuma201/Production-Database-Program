@@ -19,6 +19,19 @@
 
 <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
   <tabs>
+      <Tab text="Employee Login">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="EmpButton" layoutX="240.0" layoutY="224.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="121.0" text="Login" />
+                  <Label fx:id="userNameLabel" layoutX="90.0" layoutY="95.0" text="Username" />
+                  <Label fx:id="passwordLabel" layoutX="90.0" layoutY="147.0" text="Password" />
+                  <TextField fx:id="NameTextField" layoutX="240.0" layoutY="91.0" />
+                  <TextField fx:id="passwordTextField" layoutX="240.0" layoutY="152.0" />
+               </children>
+            </AnchorPane>
+        </content>
+      </Tab>
     <Tab text="Product Line">
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="519.0">

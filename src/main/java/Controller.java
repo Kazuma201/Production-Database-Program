@@ -7,6 +7,7 @@
 
 import static java.lang.Integer.parseInt;
 
+import java.awt.event.MouseEvent;
 import java.sql.PreparedStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -19,6 +20,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
@@ -37,6 +40,12 @@ public class Controller {
   private TextField txtProductName;
   @FXML
   private TextField txtManufacturer;
+
+  @FXML
+  private TextField NameTextField;
+
+  @FXML
+  private TextField passwordTextField;
   //-----------------------------
   //Table Columns, lists, text area
   @FXML
@@ -64,6 +73,9 @@ public class Controller {
   @FXML
   private Button btnRecordProduct;
 
+  @FXML
+  private Button EmpButton;
+
 
   //----------------------------------------------
   //Global for the Database
@@ -82,7 +94,6 @@ public class Controller {
    ObservableList<Product> productLine = FXCollections
       .observableArrayList();
 
-
   /* ---------------------------
    *
    * Initialize method
@@ -96,7 +107,7 @@ public class Controller {
 
     loadProductList();
     setupProductLineTable();
-    // loadProductionLog();
+    ;
   }
 
   @FXML
@@ -278,42 +289,22 @@ public class Controller {
     txtArea.setText(productionRun.toString());
   }
 
-/*
-  private void loadProductionLog(ArrayList<ProductionRecord> productionRun) {
-    try {
-      // STEP 1: Register JDBC driver
-      Class.forName(JDBC_DRIVER);
-      //STEP 2: Open a connection
-      conn = DriverManager.getConnection(DB_URL, USER, PASS);
-      //STEP 3: Execute a query
-      stmt = conn.createStatement();
+private void employeeScreen()
+{
+  String name = NameTextField.getText();
+  String password = passwordTextField.getText();
 
-      String sql = "SELECT * FROM PRODUCTIONRECORD";
-      ResultSet rs = stmt.executeQuery(sql);
-      while(rs.next())
-      {
-        int productNum = rs.getInt("PRODUCTION_NUM");
-        int productId = rs.getInt("PRODUCT_ID");
-        String serial = rs.getString("SERIAL_NUM");
-        Date date = rs.getDate("DATE_PRODUCED");
+  Employee employee = new Employee(name, password);
+  System.out.println(employee);
 
-        ProductionRecord addToProdRecord =
-            new ProductionRecord(productNum,productId, serial,date);
 
-        productionRun.add(addToProdRecord);
+  Alert a = new Alert(AlertType.NONE);
+  a.setAlertType(AlertType.CONFIRMATION);
+  a.setContentText("Signed in!");
+  a.show();
 
-        //Display productionRun to txtArea
-        showProduction(productionRun);
-      }
+}
 
-    } catch(
-        ClassNotFoundException e)
-    { e.printStackTrace();
-    } catch(SQLException e) {
-      e.printStackTrace();
-    }
-  }
-*/
 
 }
 
